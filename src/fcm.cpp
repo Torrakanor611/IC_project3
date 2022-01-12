@@ -26,8 +26,6 @@ void fcm::loadModel(map<string, map<char, int>> &model, int k, char *filename){
     for (int i = 0; i < k; i++){
         readChar(ifs, &aux);
 
-        printf("char: %c\n", aux);
-
         ctx.append(1, aux);
     }
 

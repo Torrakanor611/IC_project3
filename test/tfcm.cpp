@@ -1,7 +1,8 @@
 /**
  * programa tem como entrada 1 ou mais ficheiros de texto para os quais se quer tirar o modelo
  * 
- * */
+ * example of usage: ./tfcm ../texts/simple.txt ../texts/PT.utf8
+ */
 #include "../src/fcm.cpp"
 
 #include<map>
@@ -22,11 +23,14 @@ int main(int argc, char** argv){
     for(int i = 1; i < argc; i++){
         
         cout << "trying to process: " << argv[i] << endl;
-        fcm::loadModel(model, 5, argv[1]);
+        fcm::loadModel(model, 5, argv[i]);
         cout << "done" << endl;
     }
 
-    // printModel(model, 100);
+    cout << "printing model:" << endl;
+
+    // imprime os 1os 20 pares de model
+    printModel(model, 20);
 }
 
 void printModel(map<string, map<char, int>> model, int n){
