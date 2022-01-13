@@ -11,15 +11,17 @@ using namespace std;
  */
 class fcm {
     private:
-        int k;
+        int k; // k-order model
         double alfa;
 
+        void calculateModelEntropy(map<string, map<char, int>> &model);
+
     public:
-        double entropy;
+        static double modelEntropy;
 
         fcm();
         fcm(int k, double alfa);
-        void estimate(map<string, map<char, int>> &model, const char *filename);
+        void estimate(map<string, map<char, int>> &model, char *filename);
         static void loadModel(map<string, map<char, int>> &model, int k, char *filename);
 };
 
