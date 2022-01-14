@@ -3,10 +3,11 @@
 #include<fstream>
 #include<string>
 #include<iostream>
+#include<cmath>
 
 using namespace std;
 
-#define ALPHABETH_SIZE = 27
+#define ALPHABETH_SIZE 27
 
 void readChar(ifstream &ifs, char *c);
 void entropy(double *entropy, double prob);
@@ -22,7 +23,7 @@ void calculateModelEntropy(map<string, map<char, int>> &model){
     ;
 }
 
-void fcm::estimate(map<string, map<char, int>> &model, char *filename){
+void fcm::estimate(map<string, map<char, int>> &model, const char *filename){
     ifstream ifs(filename, std::ios::in);
     if(!ifs.is_open()){
         throw runtime_error("Error: Could not open file!");
@@ -37,41 +38,42 @@ void fcm::estimate(map<string, map<char, int>> &model, char *filename){
 
     int noccur, totalOccur;
 
-    double distance;
+    double H = 0;
 
     do{
         readChar(ifs, &aux);
 
-        // totalOccur = 0;
+        totalOccur = 0;
 
+        // modelo contem contexto
+        if(model.count(ctx) > 0){
+            map<char, int> &occur = model[ctx];
+            // contexto tem o char que procuramos
+            if(occur.count(aux) > 0){  
+                noccur = occur[aux];
+            }else{ // não tem
+                noccur = 0;
+            }
+            for(auto i : occur){
+                // contar o número total de entrys para o contexto
+                totalOccur += i.second;
+            }
+        }else{  // não contêm
+            noccur = 0;
+            totalOccur = 0;
+        }
 
-        // // modelo contem contexto
-        // if(model.count(ctx) > 0){
-        //     map<char, int> &occur = model[ctx];
-
-        //     // contexto tem o char que procuramos
-        //     if(occur.count(aux) > 0){  
-        //         noccur = occur[aux];
-        //     }else{ // não tem
-        //         noccur = 0;
-        //     }
-
-        //     for(auto i : occur){
-        //         totalOccur += i.second;
-        //     }
-        // }else{  // não contêm
-        //     noccur = 0;
-        //     totalOccur = 0;
-        // }
-
-        // // estimar entropia
-
-        // // ...
+        // estimar entropia
+        H += -log2((noccur + alfa) / (totalOccur + (alfa * ALPHABETH_SIZE)));
+        // printf("H = %f", H);
 
         // update ctx
         ctx.erase(0,1); // removes first character
         ctx.append(1, aux);
     }while(!ifs.eof());
+
+    // save estimated entropy on static atribute
+    distance = H;
 }
 
 void fcm::loadModel(map<string, map<char, int>> &model, int k, char *filename){

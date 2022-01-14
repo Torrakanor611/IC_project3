@@ -15,22 +15,24 @@ int main(int argc, char** argv){
     if(argc < 2){
         cout << "Error: Usage sintax is: ./tfcm <textfile>" << endl;
         return 0; 
-    } 
-
+    }
 
     map<string, map<char, int>> model;
 
     for(int i = 1; i < argc; i++){
-        
         cout << "trying to process: " << argv[i] << endl;
         fcm::loadModel(model, 5, argv[i]);
         cout << "done" << endl;
     }
 
-    cout << "printing model:" << endl;
+    fcm f(5, 0.1);
+    f.estimate(model, "../models/simple.txt");
+    cout << "distancia estimada: " << f.distance << endl;
 
-    // imprime os 1os 20 pares de model
-    printModel(model, 20);
+
+    // cout << "printing model:" << endl;
+    // // imprime os 1os 20 pares de model
+    // printModel(model, 20);
 }
 
 void printModel(map<string, map<char, int>> model, int n){
