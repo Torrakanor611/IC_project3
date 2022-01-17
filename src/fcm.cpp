@@ -23,7 +23,7 @@ void calculateModelEntropy(map<string, map<char, int>> &model){
     ;
 }
 
-void fcm::estimate(map<string, map<char, int>> &model, const char *filename){
+void fcm::estimate(map<string, map<char, int>> &model, char *filename){
     ifstream ifs(filename, std::ios::in);
     if(!ifs.is_open()){
         throw runtime_error("Error: Could not open file!");
@@ -37,14 +37,14 @@ void fcm::estimate(map<string, map<char, int>> &model, const char *filename){
     }
 
     int noccur, totalOccur;
-
-    double H = 0;
+    double sumH = 0;
+    int count = 0;
 
     do{
         readChar(ifs, &aux);
+        count++;
 
         totalOccur = 0;
-
         // modelo contem contexto
         if(model.count(ctx) > 0){
             map<char, int> &occur = model[ctx];
@@ -63,17 +63,18 @@ void fcm::estimate(map<string, map<char, int>> &model, const char *filename){
             totalOccur = 0;
         }
 
-        // estimar entropia
-        H += -log2((noccur + alfa) / (totalOccur + (alfa * ALPHABETH_SIZE)));
-        // printf("H = %f", H);
+        sumH += -log2((noccur + alfa) / (totalOccur + (alfa * ALPHABETH_SIZE)));
 
         // update ctx
         ctx.erase(0,1); // removes first character
         ctx.append(1, aux);
     }while(!ifs.eof());
 
-    // save estimated entropy on static atribute
-    distance = H;
+    // save estimated distance
+    distance = sumH;
+
+    // save estimated entropy
+    estimatedEntropy = sumH / count;
 }
 
 void fcm::loadModel(map<string, map<char, int>> &model, int k, char *filename){
@@ -109,5 +110,9 @@ void fcm::loadModel(map<string, map<char, int>> &model, int k, char *filename){
 void readChar(ifstream &ifs, char *c){
     do{
         ifs.get(*c);
+        // ifs >> c;
+        // ifs.read(c, 1);
+
+        printf("%c", *c);
     }while(*c == '\n' && !ifs.eof());
 }

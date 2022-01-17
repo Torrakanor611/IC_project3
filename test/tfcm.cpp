@@ -1,7 +1,7 @@
 /**
  * programa tem como entrada 1 ou mais ficheiros de texto para os quais se quer tirar o modelo
  * 
- * example of usage: ./tfcm ../models/simple.txt ../models/PT.utf8
+ * example of usage: ./tfcm ../models/PT.utf8 ../models/simple.txt
  */
 #include "../src/fcm.cpp"
 
@@ -28,11 +28,12 @@ int main(int argc, char** argv){
     fcm f(5, 0.1);
     f.estimate(model, "../models/simple.txt");
     cout << "distancia estimada: " << f.distance << endl;
+    cout << "entropia estimada:" << f.estimatedEntropy << endl;
 
 
-    // cout << "printing model:" << endl;
-    // // imprime os 1os 20 pares de model
-    // printModel(model, 20);
+    cout << "printing model:" << endl;
+    // imprime os 1os 20 pares de model
+    printModel(model, 20);
 }
 
 void printModel(map<string, map<char, int>> model, int n){

@@ -18,11 +18,13 @@ class fcm {
 
     public:
         double distance;
-        static double modelEntropy;
+        double modelEntropy;
+        double estimatedEntropy;
+        
 
         fcm();
         fcm(int k, double alfa);
-        void estimate(map<string, map<char, int>> &model, const char *filename);
+        void estimate(map<string, map<char, int>> &model, char *filename);
         static void loadModel(map<string, map<char, int>> &model, int k, char *filename);
 };
 

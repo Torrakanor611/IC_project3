@@ -1,5 +1,5 @@
 # add test scripts here
-SCRIPTS=tfcm
+SCRIPTS=tfcm especial
 
 all: ${SCRIPTS}
 
