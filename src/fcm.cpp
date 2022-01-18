@@ -10,7 +10,6 @@ using namespace std;
 #define ALPHABETH_SIZE 27
 
 void readChar(ifstream &ifs, char *c);
-void entropy(double *entropy, double prob);
         
 fcm::fcm(){ }
 
@@ -19,8 +18,60 @@ fcm::fcm(int k, double alfa){
     this->alfa = alfa; // this->alfa = (*this).alfa
 }
 
-void calculateModelEntropy(map<string, map<char, int>> &model){
-    ;
+// é preciso declarar os membros estáticos da função
+// membros estáticos must have a defenition
+double fcm::modelEntropy;
+
+void fcm::calculateModelEntropy(map<string, map<char, int>> &model){
+    int jj = 0;
+    
+    int aux;
+    int totalEntrys = 0;
+    map<string, int> totalOccurCtx;
+    for(auto i : model){
+        map<char, int> &occur = model[i.first];
+        aux = 0;
+        for(auto i : occur){
+            aux += i.second;
+        }
+        totalOccurCtx[i.first] = aux;
+        totalEntrys += aux;
+        if (jj < 3){
+            printf("aux: %d\n", aux);
+            printf("totalOccurCtx[i.first]: %d\n", totalOccurCtx[i.first]);
+            printf("totalEntrys: %d\n", totalEntrys);
+        }
+        jj++;
+    }
+    jj = 0;
+    double probCtx, prob, ctxEntropy, H;
+    int ctxTotal;
+
+    for(auto i : model){
+        map<char, int> &occur = model[i.first];
+
+        ctxTotal = totalOccurCtx[i.first];
+        probCtx = (double)ctxTotal / totalEntrys;
+
+        if (jj < 3){
+            printf("ctxTotal: %d\n", ctxTotal);
+            printf("probCtx: %f\n", probCtx);
+
+        }
+        ctxEntropy = 0;
+        for(auto i : occur){
+            prob = (double) i.second / ctxTotal;
+            ctxEntropy -= prob * log2(prob);
+            if (jj < 3){
+                printf("prob: %f\n", prob);
+                printf("ctxEntropy: %f\n", ctxEntropy);
+                printf("totalEntrys: %d\n---\n", totalEntrys);
+            }
+        }
+        H += ctxEntropy * probCtx;
+        jj++;
+    }
+    fcm::modelEntropy = H;
 }
 
 void fcm::estimate(map<string, map<char, int>> &model, char *filename){
@@ -110,9 +161,6 @@ void fcm::loadModel(map<string, map<char, int>> &model, int k, char *filename){
 void readChar(ifstream &ifs, char *c){
     do{
         ifs.get(*c);
-        // ifs >> c;
-        // ifs.read(c, 1);
-
-        printf("%c", *c);
+        // printf("%c", *c);
     }while(*c == '\n' && !ifs.eof());
 }

@@ -19,21 +19,23 @@ int main(int argc, char** argv){
 
     map<string, map<char, int>> model;
 
-    for(int i = 1; i < argc; i++){
+    for(int i = 1; i < argc - 1; i++){
         cout << "trying to process: " << argv[i] << endl;
         fcm::loadModel(model, 5, argv[i]);
         cout << "done" << endl;
     }
+    fcm::calculateModelEntropy(model);
+    cout << "entropia do modelo: " << fcm::modelEntropy << endl;
 
     fcm f(5, 0.1);
     f.estimate(model, "../models/simple.txt");
     cout << "distancia estimada: " << f.distance << endl;
-    cout << "entropia estimada:" << f.estimatedEntropy << endl;
+    cout << "entropia estimada: " << f.estimatedEntropy << endl;
 
 
-    cout << "printing model:" << endl;
+    //cout << "printing model:" << endl;
     // imprime os 1os 20 pares de model
-    printModel(model, 20);
+    //printModel(model, 20);
 }
 
 void printModel(map<string, map<char, int>> model, int n){

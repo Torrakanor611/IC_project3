@@ -14,18 +14,16 @@ class fcm {
         int k; // k-order model
         double alfa;
 
-        void calculateModelEntropy(map<string, map<char, int>> &model);
-
     public:
         double distance;
-        double modelEntropy;
+        static double modelEntropy;
         double estimatedEntropy;
         
-
         fcm();
         fcm(int k, double alfa);
         void estimate(map<string, map<char, int>> &model, char *filename);
         static void loadModel(map<string, map<char, int>> &model, int k, char *filename);
+        static void calculateModelEntropy(map<string, map<char, int>> &model);
 };
 
 #endif
