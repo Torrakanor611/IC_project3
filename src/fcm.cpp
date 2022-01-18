@@ -23,7 +23,7 @@ fcm::fcm(int k, double alfa){
 double fcm::modelEntropy;
 
 void fcm::calculateModelEntropy(map<string, map<char, int>> &model){
-    int jj = 0;
+    // int jj = 0;
     
     int aux;
     int totalEntrys = 0;
@@ -36,14 +36,14 @@ void fcm::calculateModelEntropy(map<string, map<char, int>> &model){
         }
         totalOccurCtx[i.first] = aux;
         totalEntrys += aux;
-        if (jj < 3){
-            printf("aux: %d\n", aux);
-            printf("totalOccurCtx[i.first]: %d\n", totalOccurCtx[i.first]);
-            printf("totalEntrys: %d\n", totalEntrys);
-        }
-        jj++;
+        // if (jj < 3){
+        //     printf("aux: %d\n", aux);
+        //     printf("totalOccurCtx[i.first]: %d\n", totalOccurCtx[i.first]);
+        //     printf("totalEntrys: %d\n", totalEntrys);
+        // }
+        // jj++;
     }
-    jj = 0;
+    // jj = 0;
     double probCtx, prob, ctxEntropy, H;
     int ctxTotal;
 
@@ -53,23 +53,23 @@ void fcm::calculateModelEntropy(map<string, map<char, int>> &model){
         ctxTotal = totalOccurCtx[i.first];
         probCtx = (double)ctxTotal / totalEntrys;
 
-        if (jj < 3){
-            printf("ctxTotal: %d\n", ctxTotal);
-            printf("probCtx: %f\n", probCtx);
+        // if (jj < 3){
+        //     printf("ctxTotal: %d\n", ctxTotal);
+        //     printf("probCtx: %f\n", probCtx);
 
-        }
+        // }
         ctxEntropy = 0;
         for(auto i : occur){
             prob = (double) i.second / ctxTotal;
             ctxEntropy -= prob * log2(prob);
-            if (jj < 3){
-                printf("prob: %f\n", prob);
-                printf("ctxEntropy: %f\n", ctxEntropy);
-                printf("totalEntrys: %d\n---\n", totalEntrys);
-            }
+            // if (jj < 3){
+            //     printf("prob: %f\n", prob);
+            //     printf("ctxEntropy: %f\n", ctxEntropy);
+            //     printf("totalEntrys: %d\n---\n", totalEntrys);
+            // }
         }
         H += ctxEntropy * probCtx;
-        jj++;
+        // jj++;
     }
     fcm::modelEntropy = H;
 }
