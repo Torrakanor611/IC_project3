@@ -18,10 +18,6 @@ fcm::fcm(int k, double alfa){
     this->alfa = alfa; // this->alfa = (*this).alfa
 }
 
-// é preciso declarar os membros estáticos da função
-// membros estáticos must have a defenition
-double fcm::modelEntropy;
-
 void fcm::calculateModelEntropy(map<string, map<char, int>> &model){
     // int jj = 0;
     
@@ -71,7 +67,7 @@ void fcm::calculateModelEntropy(map<string, map<char, int>> &model){
         H += ctxEntropy * probCtx;
         // jj++;
     }
-    fcm::modelEntropy = H;
+    modelEntropy = H;
 }
 
 void fcm::estimate(map<string, map<char, int>> &model, char *filename){
@@ -128,7 +124,7 @@ void fcm::estimate(map<string, map<char, int>> &model, char *filename){
     estimatedEntropy = sumH / count;
 }
 
-void fcm::loadModel(map<string, map<char, int>> &model, int k, char *filename){
+void fcm::loadModel(map<string, map<char, int>> &model, char *filename){
     ifstream ifs(filename, std::ios::in);
     if(!ifs.is_open()){
         throw runtime_error("Error: Could not open file!");
@@ -161,6 +157,5 @@ void fcm::loadModel(map<string, map<char, int>> &model, int k, char *filename){
 void readChar(ifstream &ifs, char *c){
     do{
         ifs.get(*c);
-        // printf("%c", *c);
     }while(*c == '\n' && !ifs.eof());
 }

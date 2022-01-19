@@ -17,17 +17,19 @@ int main(int argc, char** argv){
         return 0; 
     }
 
+
+    fcm f(5, 0.1);
     map<string, map<char, int>> model;
 
     for(int i = 1; i < argc - 1; i++){
         cout << "trying to process: " << argv[i] << endl;
-        fcm::loadModel(model, 5, argv[i]);
+        f.loadModel(model, argv[i]);
         cout << "done" << endl;
     }
-    fcm::calculateModelEntropy(model);
-    cout << "entropia do modelo: " << fcm::modelEntropy << endl;
+    f.calculateModelEntropy(model);
+    cout << "entropia do modelo: " << f.modelEntropy << endl;
 
-    fcm f(5, 0.1);
+    // estimar entropia de um texto de entrada
     f.estimate(model, "../models/simple.txt");
     cout << "distancia estimada: " << f.distance << endl;
     cout << "entropia estimada: " << f.estimatedEntropy << endl;
