@@ -9,7 +9,8 @@ int main(int argc, char** argv){
 
     map<string, map<char, int>> model;
 
-    fcm::loadModel(model, 5, "../models/especial.utf8");
+    fcm f(5, 0.1);
+    f.loadModel(model, (char*)"../models/especial.utf8");
 
     printModel(model, 20);
 
