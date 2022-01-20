@@ -12,6 +12,12 @@ and to clear all binary files
 ```
 make clean
 ```
+## Compiling documentation
+
+In terminal, on root directory of the project
+```
+doxygen doxyconfig
+```
 
 ## Directories
 
