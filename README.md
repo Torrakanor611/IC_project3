@@ -4,7 +4,7 @@
 
 ## Compiling the code
 
-In a terminal, enter the **test** directory
+In a terminal, in project root directory
 ```
 make all
 ```
@@ -25,4 +25,6 @@ doxygen doxyconfig
 
 >test contains tests to the several modules
 
->src contains classes that implement the project modules
+>src contains source code implemented the project modules
+
+>bin contains binary files after compilation

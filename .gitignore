@@ -3,3 +3,9 @@
 docs/
 
 bin/
+
+# 1st exclude all
+test/*
+# 2nd include all that DONT match the files u wuant
+!test/*.*
+
