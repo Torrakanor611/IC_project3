@@ -1,3 +1,5 @@
 .vscode
 # Ignore the build and lib dirs
 docs/
+
+bin/
