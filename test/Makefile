@@ -1,5 +1,5 @@
 # add test scripts here
-SCRIPTS=tfcm especial lang
+SCRIPTS=tfcm entropyfcm lang
 
 all: ${SCRIPTS}
 
