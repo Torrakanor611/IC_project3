@@ -15,15 +15,26 @@ class fcm {
         double alfa;
 
     public:
+        /**
+         * @brief variable to store distance calculated
+         */
         double distance;
+
+        /**
+         * @brief variable to store entropy of a model previous calculated
+         */
         double modelEntropy;
+
+        /**
+         * @brief variable to store the estimated entropy of a give text previous calculated
+         */
         double estimatedEntropy;
         
         fcm();
         /**
          * FCM class constructor
          * @param k order of the context model
-         * @param alfa for the probability estimator
+         * @param alfa smoothing parameter
          */
         fcm(int k, double alfa);
         
@@ -31,7 +42,7 @@ class fcm {
         /**
          * FCM estimator
          * @brief For a given model (already initialized) and a new file estimate the entropy and distance to the given file
-         * @param model that already must be initialized
+         * @param model data structure that already must be initialized
          * @param filename path to file
          */
         void estimate(map<string, map<char, int>> &model, char *filename);
