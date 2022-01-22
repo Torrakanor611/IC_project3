@@ -4,6 +4,7 @@
 #include<string>
 #include<iostream>
 #include<cmath>
+#include <sstream>
 
 using namespace std;
 
@@ -124,7 +125,7 @@ void fcm::estimate(map<string, map<char, int>> &model, char *filename){
     estimatedEntropy = sumH / count;
 }
 
-void fcm::loadModel(map<string, map<char, int>> &model, char *filename){
+void fcm::loadModel(map<string, map<char, int>> &model, char *filename, char *filenameDest){
     ifstream ifs(filename, std::ios::in);
     if(!ifs.is_open()){
         throw runtime_error("Error: Could not open file!");
@@ -152,6 +153,43 @@ void fcm::loadModel(map<string, map<char, int>> &model, char *filename){
         ctx.append(1, aux);
     }while(!ifs.eof());
 
+    ofstream myfile;
+    myfile.open (filenameDest);
+    for(auto i : model) {
+        map<char, int> &occur = model[i.first];
+        for(auto j : occur){
+            myfile << i.first << "\t" << j.first << "\t" << j.second << endl;
+        }
+    }
+    myfile.close();
+}
+
+void fcm::loadExistingModel(map<string, map<char, int>> &model, char *filename) {
+    ifstream file(filename);
+    string line;
+    int i = 0;
+    string a;
+    char b;
+    int c;
+    while (getline(file, line)) {
+        istringstream lin(line);
+        
+        while(getline(lin, line, '\t')) {
+			if(i == 0) {
+                a = line;
+                i++;
+            }
+            else if(i == 1) {
+                b = line[0];
+                i++;
+            }
+            else {
+                c = stoi(line);
+                i = 0;
+                model[a][b] = c;
+            }
+		}
+    }
 }
 
 void readChar(ifstream &ifs, char *c){
