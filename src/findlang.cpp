@@ -1,7 +1,7 @@
 #include "../src/fcm.cpp"
 
-// ./findlang ../models/PT.utf8 ../models/ENG.utf8 ../models/ESP.utf8 ../models/GER.utf8 ../models/IT.utf8 ../models/FR.utf8 ../models/SWE.utf8 ../models/simple.txt
-// ./findlang pt.txt eng.txt esp.txt ger.txt it.txt fr.txt swe.txt ../models/simple.txt
+// ./findlang ../models/PT.utf8 ../models/ENG.utf8 ../models/ESP.utf8 ../models/GER.utf8 ../models/IT.utf8 ../models/FR.utf8 ../models/SWE.utf8 ../models/SWE.utf8 ../models/DAN.utf8  ../models/simple.txt
+// ./findlang ../models/PTmodel.txt ../models/ENGmodel.txt ../models/ESPmodel.txt../models/GERmodel.txt ../models/ITmodel.txt ../models/FRmodel.txt ../models/SWEmodel.txt ../models/DANmodel.txt ../models/simple.txt
 
 int main(int argc, char** argv)
 {
@@ -16,23 +16,20 @@ int main(int argc, char** argv)
     float a = 0;
     char l ='a';
 
-    while(k <= 0){
-        cout << "Insert context order (k): ";
-        cin >> k;
-    }
-    while(a <= 0){
-        cout << "Insert alpha (a): ";
-        cin >> a;
-    }
-
-    while(a <= 0){
-        cout << "Insert alpha (a): ";
-        cin >> a;
-    }
-
-    while(l != 'y' | l != 'n') {
+    while(l != 'y' & l != 'n') {
         cout << "Load models (y/n): ";
         cin >> l;
+    }
+
+    if(l == 'n') {
+        while(k <= 0){
+            cout << "Insert context order (k): ";
+            cin >> k;
+        }
+        while(a <= 0){
+            cout << "Insert alpha (a): ";
+            cin >> a;
+        }
     }
     
     //Load models and processing
@@ -43,9 +40,9 @@ int main(int argc, char** argv)
         
         map<string, map<char, int>> model;
         
-        cout << "Begin processing " << argv[i] << "..." << endl;
+        cout << "Begin processing " << argv[i] << endl;
         if(l == 'n') {
-            f.loadModel(model, argv[i], "ok.txt");
+            f.loadModel(model, argv[i]);
         }
         else {
             f.loadExistingModel(model, argv[i]);
@@ -64,7 +61,7 @@ int main(int argc, char** argv)
         cout << "Model loaded sucessfully!" << endl;
     }
 
-    cout << "Guess for the language in which a text was written: " << modelLang << endl;
+    cout << "\nGuess for the language in which a text was written: " << modelLang << endl;
     
     return 0;
 }

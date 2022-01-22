@@ -17,29 +17,34 @@ int main(int argc, char** argv){
         return 0; 
     }
 
+    char l ='a';
+
+    while(l != 'y' & l != 'n') {
+        cout << "Load models (y/n): ";
+        cin >> l;
+    }
 
     fcm f(5, 0.1);
     map<string, map<char, int>> model;
 
-    // for(int i = 1; i < argc - 1; i++){
-    //     cout << "trying to process: " << argv[i] << endl;
-    //     f.loadModel(model, argv[i],);
-    //     f.loadExistingModel(model, "example.txt");
-    //     cout << "done" << endl;
-    // }
-
-    cout << "trying to process: " << argv[1] << endl;
-    f.loadModel(model, argv[1], argv[2]);
-    cout << "writing:" << argv[1] << endl;
+    for(int i = 1; i < argc - 1; i++){
+        cout << "trying to process: " << argv[i] << endl;
+        if(l == 'n') {
+            f.loadModel(model, argv[i]);
+        }
+        else {
+            f.loadExistingModel(model, argv[i]);
+        }
+        cout << "done" << endl;
+    }
 
     f.calculateModelEntropy(model);
     cout << "entropia do modelo: " << f.modelEntropy << endl;
-
-    // // estimar entropia de um texto de entrada
-    // f.estimate(model, (char*)"../models/simple.txt");
-    // cout << "distancia estimada: " << f.distance << endl;
-    // cout << "entropia estimada: " << f.estimatedEntropy << endl;
-
+    
+    // estimar entropia de um texto de entrada
+    f.estimate(model, (char*)"../models/simple.txt");
+    cout << "distancia estimada: " << f.distance << endl;
+    cout << "entropia estimada: " << f.estimatedEntropy << endl;
 
     //cout << "printing model:" << endl;
     // imprime os 1os 20 pares de model
