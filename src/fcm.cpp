@@ -163,9 +163,11 @@ void fcm::loadModel(map<string, map<char, int>> &model, char *filename){
     myfile << k << "\t" << alfa << endl;
     for(auto i : model) {
         map<char, int> &occur = model[i.first];
+        myfile << i.first;
         for(auto j : occur){
-            myfile << i.first << "\t" << j.first << "\t" << j.second << endl;
+            myfile << '\t' << j.first << '\t' << j.second;
         }
+        myfile << endl;
     }
     myfile.close();
 }
@@ -203,8 +205,14 @@ void fcm::loadExistingModel(map<string, map<char, int>> &model, char *filename) 
                 }
                 else {
                     c = stoi(line);
-                    i = 0;
                     model[a][b] = c;
+                    if(getline(lin, line, '\t')) {
+                        b = line[0];
+                        i = 2;
+                    }
+                    else {
+                        i = 0;
+                    }
                 }
             }
         }
