@@ -1,7 +1,8 @@
 #include "../src/fcm.cpp"
 
 // ./findlang ../models/PT.utf8 ../models/ENG.utf8 ../models/ESP.utf8 ../models/GER.utf8 ../models/IT.utf8 ../models/FR.utf8 ../models/SWE.utf8 ../models/SWE.utf8 ../models/DAN.utf8  ../models/simple.txt
-// ./findlang ../models/PTmodel.txt ../models/ENGmodel.txt ../models/ESPmodel.txt../models/GERmodel.txt ../models/ITmodel.txt ../models/FRmodel.txt ../models/SWEmodel.txt ../models/DANmodel.txt ../models/simple.txt
+// ./findlang ../models/ARABmodel.txt ../models/BGmodel.txt ../models/BOSNmodel.txt ../models/CZmodel.txt ../models/DANmodel.txt ../models/ENGmodel.txt ../models/ESPmodel.txt ../models/ESTmodel.txt ../models/FImodel.txt ../models/FRmodel.txt ../models/GERmodel.txt ../models/GKmodel.txt ../models/ISmodel.txt ../models/ITmodel.txt ../models/JPNmodel.txt ../models/LTmodel.txt ../models/MACmodel.txt ../models/NORmodel.txt ../models/PTmodel.txt ../models/ROmodel.txt ../models/RUmodel.txt ../models/SKmodel.txt ../models/SWEmodel.txt ../models/TURKmodel.txt ../models/lusiadas.txt
+// ./findlang ../models/ARABmodel.txt ../models/BGmodel.txt ../models/SKmodel.txt ../models/PTmodel.txt ../models/SWEmodel.txt ../models/TURKmodel.txt ../models/lusiadas.txt
 
 int main(int argc, char** argv)
 {
@@ -47,6 +48,10 @@ int main(int argc, char** argv)
         else {
             f.loadExistingModel(model, argv[i]);
         }
+
+        f.estimate(model, argv[argc-1]);
+        cout << "distancia estimada: " << f.distance << endl;
+        cout << "entropia estimada: " << f.estimatedEntropy << endl;
 
         if(i == 1) {
             modelLang = argv[i];

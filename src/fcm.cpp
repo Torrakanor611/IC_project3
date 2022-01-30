@@ -157,6 +157,7 @@ void fcm::loadModel(map<string, map<char, int>> &model, char *filename){
     size_t dot = string(filename).find_last_of(".");
     string destFilename = string(filename).substr(0, dot);
     destFilename += "model.txt";
+    cout << destFilename << endl;
 
     ofstream myfile;
     myfile.open (destFilename);
@@ -222,5 +223,5 @@ void fcm::loadExistingModel(map<string, map<char, int>> &model, char *filename) 
 void readChar(ifstream &ifs, char *c){
     do{
         ifs.get(*c);
-    }while(*c == '\n' && !ifs.eof());
+    }while((*c == '\n'|*c == '\t') && !ifs.eof());
 }
