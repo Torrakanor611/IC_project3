@@ -221,7 +221,11 @@ void fcm::loadExistingModel(map<string, map<char, int>> &model, char *filename) 
 }
 
 void readChar(ifstream &ifs, char *c){
+    char s;
     do{
-        ifs.get(*c);
+        ifs.get(s);
+        if(!(s == '\n'| s == '\t')) {
+            *c = s;
+        }
     }while((*c == '\n'|*c == '\t') && !ifs.eof());
 }
