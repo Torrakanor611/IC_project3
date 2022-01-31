@@ -51,8 +51,8 @@ int main(int argc, char** argv)
         }
 
         f.estimate(model, argv[argc-1]);
-        cout << "distancia estimada: " << f.distance << endl;
-        cout << "entropia estimada: " << f.estimatedEntropy << endl;
+        // cout << "distancia estimada: " << f.distance << endl;
+        // cout << "entropia estimada: " << f.estimatedEntropy << endl;
 
         if(i == 1) {
             modelLang = argv[i];

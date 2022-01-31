@@ -35,16 +35,16 @@ int main(int argc, char** argv){
         else {
             f.loadExistingModel(model, argv[i]);
         }
-        cout << "done" << endl;
-    }
+        // cout << "done" << endl;
 
-    f.calculateModelEntropy(model);
-    cout << "entropia do modelo: " << f.modelEntropy << endl;
-    
-    // estimar entropia de um texto de entrada
-    f.estimate(model, (char*)"../models/simple.txt");
-    cout << "distancia estimada: " << f.distance << endl;
-    cout << "entropia estimada: " << f.estimatedEntropy << endl;
+        f.calculateModelEntropy(model);
+        cout << "entropia do modelo: " << f.modelEntropy << endl;
+        
+        // estimar entropia de um texto de entrada
+        f.estimate(model, (char*)"../models/simple.txt");
+        cout << "distancia estimada: " << f.distance << endl;
+        cout << "entropia estimada: " << f.estimatedEntropy << endl;
+    }
 
     //cout << "printing model:" << endl;
     // imprime os 1os 20 pares de model
