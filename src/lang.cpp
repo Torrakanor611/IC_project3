@@ -11,20 +11,34 @@ int main(int argc, char** argv)
     //Context order and alpha
     int k = -1;
     float a = 0;
-    while(k <= 0){
-        cout << "Insert context order (k): ";
-        cin >> k;
+    char l ='a';
+
+    while(l != 'y' & l != 'n') {
+        cout << "Load models (y/n): ";
+        cin >> l;
     }
-    while(a <= 0){
-        cout << "Insert alpha (a): ";
-        cin >> a;
+
+    if(l == 'n') {
+        while(k <= 0){
+            cout << "Insert context order (k): ";
+            cin >> k;
+        }
+        while(a <= 0){
+            cout << "Insert alpha (a): ";
+            cin >> a;
+        }
     }
 
     //Load model and processing it
     fcm f = fcm(k, a);
     map<string, map<char, int>> model;
     cout << "Begin processing..." << endl;
-    f.loadModel(model, argv[1]);
+    if(l == 'n') {
+        f.loadModel(model, argv[1]);
+    }
+    else {
+        f.loadExistingModel(model, argv[1]);
+    }
     cout << "Model loaded sucessfully!" << endl;
 
     //estimated number of bits required to compress second file
