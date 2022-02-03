@@ -30,6 +30,11 @@ class fcm {
          */
         double estimatedEntropy;
         
+        /**
+         * @brief variable to store number of letters of a file to be estimated
+         */ 
+        int nLetters;
+
         fcm();
         /**
          * FCM class constructor

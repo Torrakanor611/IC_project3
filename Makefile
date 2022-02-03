@@ -15,4 +15,4 @@ findlang: src/findlang.cpp
 	$(CPP) -o ./bin/findlang src/findlang.cpp src/fcm.hpp
 
 clean:
-	rm -f ${SCRIPTS}
+	rm -f bin/lang bin/findlang

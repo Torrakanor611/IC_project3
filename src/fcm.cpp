@@ -123,6 +123,9 @@ void fcm::estimate(map<string, map<char, int>> &model, char *filename){
 
     // save estimated entropy
     estimatedEntropy = sumH / count;
+
+    // Update number of characters in the file
+    nLetters = count;
 }
 
 void fcm::loadModel(map<string, map<char, int>> &model, char *filename){

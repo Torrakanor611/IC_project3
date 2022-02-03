@@ -44,6 +44,8 @@ int main(int argc, char** argv)
     //estimated number of bits required to compress second file
     f.estimate(model, argv[2]);
     cout << "Estimated number of bits to compress file: " << f.distance<< endl;
+    cout << "Estimated number of bits per character: " << f.distance/f.nLetters << endl;
+
     
     return 0;
 }
